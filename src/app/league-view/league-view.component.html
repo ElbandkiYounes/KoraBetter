@@ -1,0 +1,52 @@
+<div class="bg-white border-2 border-blue-500 shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 gap-4 px-6 py-2">
+    <p class="text-2xl md:text-4xl font-bold text-center text-gray-800 my-4 sticky top-0 bg-white z-10">{{leagueName}}</p>
+
+    <div class="flex gap-4 overflow-x-auto justify-start">
+        @if(matchesData?.data?.length != 0) {
+            @for(matche of matchesData?.data; track matche.id) {
+                <div 
+                class="bg-white border-2 border-blue-500 hover:shadow-xl transition-shadow duration-300 px-6 py-8 flex-shrink-0 w-full max-w-sm rounded-lg font-[sans-serif] mt-4">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <h3 class="text-xl font-bold flex-1 text-blue-500">{{matche.state.description}}</h3>
+                        @if(matche.state.clock != null && matche.state.description !='Finished') {  
+                            <p class="text-sm text-green-500 font-semibold cursor-pointer">{{matche.state.clock}}'</p>
+                        }@else {
+                        <p class="text-sm text-green-500 font-semibold cursor-pointer">{{matche.date.split('T')[1].split(':').slice(0, 2).join(':')}}</p>
+                        }
+                    </div>
+        
+                    <div class="mt-8 space-y-4">
+                        <div class="flex flex-wrap items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
+                            <img src={{matche.homeTeam.logo}} alt="Team 1" class="w-10 h-10 rounded-full" />
+                            <div class="ml-4 flex flex-1 justify-between">
+                                <p class="text-sm text-gray-800 font-semibold">{{matche.homeTeam.name}}</p>
+                                @if(matche.state.score.current != null) {
+                                    <p class="text-sm text-gray-800 font-semibold">{{ matche.state.score.current.split(' - ')[0] }}</p>
+                                } @else {
+                                    <p class="text-sm text-gray-800 font-semibold">-</p>
+                                }
+                            </div>
+                        </div>
+        
+                        <div class="flex flex-wrap items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
+                            <img src={{matche.awayTeam.logo}} alt="Team 2" class="w-10 h-10 rounded-full" />
+                            <div class="ml-4 flex flex-1 justify-between">
+                                <p class="text-sm text-gray-800 font-semibold">{{matche.awayTeam.name}}</p>
+                                @if(matche.state.score.current != null) {
+                                    <p class="text-sm text-gray-800 font-semibold">{{ matche.state.score.current.split(' - ')[1] }}</p>
+                                } @else {
+                                    <p class="text-sm text-gray-800 font-semibold">-</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+@if(matchesData?.data?.length == 0) {
+    <div class="flex justify-center items-center h-64 bg-gray-100 border-2 border-gray-300 shadow-md rounded-lg">
+        <p class="text-gray-500 text-lg font-semibold">No matches available for today</p>
+    </div>
+}
