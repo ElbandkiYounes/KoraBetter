@@ -4,5 +4,5 @@ export const environment = {
     apiHostName: 'x-rapidapi-host',
     apiHostValue: 'sport-highlights-api.p.rapidapi.com',
     apiKeyName: 'x-rapidapi-key',
-    apiKeyValue: '6ffe2663dbmshc584cb4f09d5637p1c2ad3jsn16c5d22b737a' //d->c
+    apiKeyValue: 'af9530b1c6msh3b81aa5225049dbp1a2519jsn516d0d4b6564' //d->c
 }

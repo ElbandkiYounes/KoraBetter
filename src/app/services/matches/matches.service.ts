@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { MatchesData } from '../../models/matche.model';
 import { Observable } from 'rxjs/internal/Observable';
+import { time } from 'node:console';
+import { timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class MatchesService {
     if (countryName) {
       params = params.set('countryName', countryName);
     }
-  
+    timeout(1000);
     return this.http.get<MatchesData>(environment.apiBaseUrl + '/matches', {
       headers: new HttpHeaders()
         .set(environment.apiHostName, environment.apiHostValue)
