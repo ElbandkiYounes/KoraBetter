@@ -25,7 +25,7 @@ export class MatchesService {
     if (countryName) {
       params = params.set('countryName', countryName);
     }
-    timeout(1000);
+    
     return this.http.get<MatchesData>(environment.apiBaseUrl + '/matches', {
       headers: new HttpHeaders()
         .set(environment.apiHostName, environment.apiHostValue)
