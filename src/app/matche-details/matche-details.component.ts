@@ -22,7 +22,7 @@ export class MatcheDetailsComponent implements OnInit {
     private MatcheDetailsService: MatcheDetailsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.matchId = params['id'];
 
