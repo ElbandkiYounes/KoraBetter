@@ -1,0 +1,123 @@
+<div class="bg-white border-2 border-blue-500 shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 gap-4 px-6 py-2 mx-2 mb-8 mt-32">
+    <div class="flex gap-4 items-center justify-center lign-center">
+        <img src="{{matcheDetails?.at(0)?.league?.logo}}" alt="League Logo">
+        <p class="text-2xl md:text-4xl font-bold text-center text-gray-800 my-4 sticky top-0 bg-white z-10">{{matcheDetails?.at(0)?.league?.name}}</p>
+    </div>
+    <div class="flex flex-col items-center gap-4 mb-8">
+        @if(matcheDetails) {
+            <div 
+            class="bg-white border-2 border-blue-500 hover:shadow-xl transition-shadow duration-300 px-6 py-8 flex-shrink-0 w-full rounded-lg font-[sans-serif] mt-4">
+              <div class="flex flex-wrap justify-between items-center">
+                <h3 class="text-xl font-bold flex-1 text-blue-500">{{matcheDetails.at(0)?.state?.description}}</h3>
+                @if(matcheDetails.at(0)?.state?.clock != null && matcheDetails.at(0)?.state?.description !='Finished') {  
+                  <p class="text-sm text-green-500 font-semibold cursor-pointer">{{matcheDetails.at(0)?.state?.clock}}'</p>
+                }@else {
+                  <p class="text-sm text-red-500 font-semibold cursor-pointer">{{matcheDetails.at(0)?.date?.split('T')?.[1]?.split(':')?.slice(0, 2)?.join(':') ?? 'N/A'}}</p>
+                }
+              </div>
+              <h3 class="text-lg font-bold text-grey-800">{{matcheDetails.at(0)?.venue?.name}}</h3>
+              <div class="mt-8 space-y-4">
+                <div class="flex flex-wrap justify-between items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
+                  
+                  <div class="flex gap-2 items-center">
+                    <img src={{matcheDetails.at(0)?.homeTeam?.logo}} alt="Team 1" class="w-8 h-8" />
+                    <p class="text-sm text-gray-800 font-semibold">{{matcheDetails.at(0)?.homeTeam?.name}}</p>
+                  </div>
+                  
+                  @if(matcheDetails.at(0)?.state?.score?.current != null) {
+                    <p class="text-md text-gray-800 font-semibold">{{ matcheDetails.at(0)?.state?.score?.current}}</p>
+                  } @else {
+                    <p class="text-md text-gray-800 font-semibold">. - .</p>
+                  }
+
+                  <div class="flex gap-2 items-center">
+                    <p class="text-sm text-gray-800 font-semibold">{{matcheDetails.at(0)?.awayTeam?.name}}</p>
+                    <img src={{matcheDetails.at(0)?.awayTeam?.logo}} alt="Team 2" class="w-8 h-8" />
+                  </div>
+                </div>
+               
+              </div>
+          </div>
+        }
+    </div>
+    
+    <div class="flex gap-8 mb-8 justify-between flex-wrap sm:flex-nowrap">
+        <div class="w-full md:w-1/2 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Matche Events</h5>
+            </div>
+            <div class="flow-root">
+                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                        @for (event of matcheDetails?.at(0)?.events; track event) {
+                            <li class="py-3 sm:py-4">
+                                <div class="flex items-center">
+                                    
+                                    <div class="flex-1 min-w-0 ms-4">
+                                        <div class="flex gap-2 flex-wrap">
+                                            <img src="{{event.team.logo}}" alt="Team Logo" class="w-8">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {{event?.type}}
+                                            </p>
+                                        </div>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            {{event?.player}}
+                                        </p>
+                                        @if(event?.assist != null) {
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                Assist : {{event?.assist}}
+                                            </p>
+                                        }
+                                        @if (event.substituted != null) {
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                Substituted : {{event?.substituted}}
+                                            </p>
+                                        }
+                                    </div>
+                                    <div class="inline-flex items-center text-base font-semibold text-green-500 dark:text-white">
+                                        {{event?.time}}'
+                                    </div>
+                                
+                                </div>
+                            </li>
+                        }
+                    </ul>
+            </div>
+        </div>
+    
+        <div class="w-full md:w-1/2 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Matche Statistics</h5>
+            </div>
+            <div class="flow-root">
+                <div class="flex justify-between items-center">
+                    <img src="{{matcheDetails?.at(0)?.homeTeam?.logo}}" alt="Team Logo" class="w-20">
+                    <img src="{{matcheDetails?.at(0)?.awayTeam?.logo}}" alt="Team Logo" class="w-20">
+                </div>
+                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                        @for (statistic of matcheDetails?.at(0)?.statistics?.at(0)?.statistics; track statistic) {
+                            <li class="py-3 sm:py-4">
+                                <div class="flex items-center">
+                                    <div class="flex-1 min-w-0 ms-4">
+                                        <div class="flex gap-2 flex-wrap justify-between items-center">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {{matcheDetails?.at(0)?.statistics?.at(0)?.statistics?.at($index)?.value}}
+                                            </p>
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {{statistic.displayName}}
+                                            </p>
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {{matcheDetails?.at(0)?.statistics?.at(1)?.statistics?.at($index)?.value}}
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+            </div>
+        </div>
+    </div>
+    
+
+</div>

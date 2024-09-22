@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Countries } from '../../models/countries.model';
 
@@ -18,6 +18,8 @@ export class CountriesService {
         'x-rapidapi-key': environment.apiKeyValue
       }
     }
-    );
+    ).pipe(delay(1200));
   }
 }
+
+

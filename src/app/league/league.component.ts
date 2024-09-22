@@ -4,14 +4,14 @@ import { Countries } from '../models/countries.model';
 import { CountriesService } from '../services/countries/countries.service';
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { Country, LeaguesData } from '../models/leagues.model';
+import { LeaguesData } from '../models/leagues.model';
 import { MatchesService } from '../services/matches/matches.service';
-import { LeagueViewComponent } from '../league-view/league-view.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-league',
   standalone: true,
-  imports: [NgClass, LeagueViewComponent],
+  imports: [NgClass, RouterLink],
   templateUrl: './league.component.html',
   styleUrl: './league.component.css'
 })

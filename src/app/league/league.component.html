@@ -50,41 +50,37 @@
       @if(matchesData?.data?.length != 0) {
         @for(matche of matchesData?.data; track matche.id) {
           <div 
-          class="bg-white border-2 border-blue-500 hover:shadow-xl transition-shadow duration-300 px-6 py-8 flex-shrink-0 w-full rounded-lg font-[sans-serif] mt-4">
+          class="bg-white border-2 border-blue-500 hover:shadow-xl transition-shadow duration-300 px-6 py-8 flex-shrink-0 w-full rounded-lg font-[sans-serif] mt-4" [routerLink]="['/matche-details']" [queryParams]="{ id: matche.id }">
               <div class="flex flex-wrap items-center gap-4">
                 <h3 class="text-xl font-bold flex-1 text-blue-500">{{matche.state.description}}</h3>
                 @if(matche.state.clock != null && matche.state.description !='Finished') {  
                   <p class="text-sm text-green-500 font-semibold cursor-pointer">{{matche.state.clock}}'</p>
                 }@else {
-                  <p class="text-sm text-green-500 font-semibold cursor-pointer">{{matche.date.split('T')[1].split(':').slice(0, 2).join(':')}}</p>
+                  <p class="text-sm text-red-500 font-semibold cursor-pointer">{{matche.date.split('T')[1].split(':').slice(0, 2).join(':')}}</p>
                 }
               </div>
   
               <div class="mt-8 space-y-4">
-                <div class="flex flex-wrap items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
-                  <div class="flex flex-1 justify-between items-center">
-                    <div class="flex gap-2 items-center">
-                      <img src={{matche.homeTeam.logo}} alt="Team 1" class="w-10 h-10 rounded-full" />
-                      <p class="text-sm text-gray-800 font-semibold">{{matche.homeTeam.name}}</p>
-                    </div>
-                    
-                    @if(matche.state.score.current != null) {
-                      <p class="text-md text-gray-800 font-semibold">{{ matche.state.score.current}}</p>
-                    } @else {
-                      <p class="text-md text-gray-800 font-semibold">. - .</p>
-                    }
+                <div class="flex flex-wrap justify-between items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
+                  
+                  <div class="flex gap-2 items-center">
+                    <img src={{matche.homeTeam.logo}} alt="Team 1" class="w-8 h-8 " />
+                    <p class="text-sm text-gray-800 font-semibold">{{matche.homeTeam.name}}</p>
+                  </div>
+                  
+                  @if(matche.state.score.current != null) {
+                    <p class="text-md text-gray-800 font-semibold">{{ matche.state.score.current}}</p>
+                  } @else {
+                    <p class="text-md text-gray-800 font-semibold">. - .</p>
+                  }
 
-                    <div class="flex gap-2 items-center">
-                      <p class="text-sm text-gray-800 font-semibold">{{matche.awayTeam.name}}</p>
-                      <img src={{matche.awayTeam.logo}} alt="Team 1" class="w-10 h-10 rounded-full" />
-                    </div>
+                  <div class="flex gap-2 items-center">
+                    <p class="text-sm text-gray-800 font-semibold">{{matche.awayTeam.name}}</p>
+                    <img src={{matche.awayTeam.logo}} alt="Team 2" class="w-8 h-8" />
                   </div>
                 </div>
+               
 
-                <div class="flex flex-wrap items-center cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-300 rounded-lg w-full p-4 bg-gray-50">
-                  <h1>Statistics</h1>
-                  
-                </div>
               </div>
           </div>
         }

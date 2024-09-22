@@ -2,11 +2,12 @@ import { MatchesData } from './../models/matche.model';
 import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatchesService } from '../services/matches/matches.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-league-view',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, RouterLink],
   templateUrl: './league-view.component.html',
   styleUrl: './league-view.component.css'
 })

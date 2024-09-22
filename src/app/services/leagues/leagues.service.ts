@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { LeaguesData } from '../../models/leagues.model';
 
 
@@ -23,7 +23,7 @@ export class LeaguesService {
           'countryName': coutry
         }
       }
-    )
+    ).pipe(delay(1200));
     
   }
 }
