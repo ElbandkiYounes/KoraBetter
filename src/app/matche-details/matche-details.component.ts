@@ -27,7 +27,6 @@ export class MatcheDetailsComponent implements OnInit {
       this.matchId = params['id'];
 
       if (!this.matchId) {
-        console.error('Match ID is required.');
         this.router.navigate(['/leagues']);
       }
     });

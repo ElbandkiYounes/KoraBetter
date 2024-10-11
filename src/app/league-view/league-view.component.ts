@@ -23,7 +23,6 @@ export class LeagueViewComponent implements OnInit{
     this.matchesService.getMatches(this.leagueName, this.countryName,this.date).subscribe(
       data => {
         this.matchesData = data;
-        console.log(data);
       }
     )
   }

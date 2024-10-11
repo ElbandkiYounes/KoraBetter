@@ -44,15 +44,17 @@ export class LeagueComponent {
     this.leagueName = (event.target as HTMLSelectElement).value;
   }
 
-  onDateChange(event : Event): void {
+  onDateChange(event: Event): void {
     const inputDate = (event.target as HTMLInputElement).value;
-    const formattedDate = new Date(inputDate).toISOString().split('T')[0];
+
+    const [month, day, year] = inputDate.split('/').map(Number);
+
+    const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
     this.date = formattedDate;
   }
 
   searchMatches() {
-    console.log("countryName: " + this.countryName + "| leagueName: " + this.leagueName + "| date: " + this.date);
-    console.log("Searching for matches..." + this.matchesData );
     this.getMatches(this.countryName!, this.leagueName!,this.date);
     
   }
@@ -61,7 +63,6 @@ export class LeagueComponent {
     this.countriesService.getCountries().subscribe(
       data => {
         this.countries = data;
-        console.log(data);
         this.countryName = data[0].name;
       }
     )
@@ -71,7 +72,6 @@ export class LeagueComponent {
     this.leaguesService.getLeagues(selectedCountry).subscribe(
       data => {
         this.leaguesData = data;
-        console.log(data.data);
         if(data.data.length > 0)
         this.leagueName = data.data[0].name;
         else
@@ -84,7 +84,6 @@ export class LeagueComponent {
     this.matchesService.getMatches(leagueName, countryName, date).subscribe(
       data => {
         this.matchesData = data;
-        console.log(data.data);
       })
   }
 
@@ -92,6 +91,5 @@ export class LeagueComponent {
     this.getCountries();
     this.getLeagues(this.countryName!);
   }
-  
   
 }
