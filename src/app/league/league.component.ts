@@ -2,11 +2,12 @@ import { MatchesData } from './../models/matche.model';
 import { LeaguesService } from '../services/leagues/leagues.service';
 import { Countries } from '../models/countries.model';
 import { CountriesService } from '../services/countries/countries.service';
-import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { isPlatformBrowser, NgClass } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { LeaguesData } from '../models/leagues.model';
 import { MatchesService } from '../services/matches/matches.service';
 import { RouterLink } from '@angular/router';
+import { Datepicker } from 'flowbite';
 
 @Component({
   selector: 'app-league',
@@ -15,7 +16,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './league.component.html',
   styleUrl: './league.component.css'
 })
-export class LeagueComponent {
+export class LeagueComponent implements AfterViewInit {
+
+  @ViewChild('datepicker') datepickerElement!: ElementRef;
 
   countries ?: Countries
   leaguesData ?: LeaguesData
@@ -29,8 +32,19 @@ export class LeagueComponent {
   constructor(
     private countriesService : CountriesService,
     private leaguesService : LeaguesService,
-    private matchesService : MatchesService
+    private matchesService : MatchesService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
+
+  async ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId) && this.datepickerElement) {
+      const { Datepicker } = await import('flowbite-datepicker');
+      new Datepicker(this.datepickerElement.nativeElement, {
+        autohide: true
+      });
+    }
+  }
+ 
   
   onCountryChange(event : Event): void {
     this.countryName = (event.target as HTMLSelectElement).value;;
